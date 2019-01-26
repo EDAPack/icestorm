@@ -1,0 +1,36 @@
+#!/bin/bash
+#****************************************************************************
+#* EDAPack wrapper script for Icestorm executables
+#****************************************************************************
+
+# First, determine the location of this script
+if test -f $0; then
+  script_dir=$(dirname $0)
+  script_dir=$(cd $script_dir ; pwd)
+else
+  # Find ourselves in the PATH
+  for elem in $(echo PATH | sed -e 's%:% %g'); do
+    script=${elem}/$0
+    if test -f $script; then
+      script_dir=$elem
+      break
+    fi
+  done
+fi
+
+exe=$(basename $0)
+
+# top-level directory containing the 'bin' scripts directory
+EDAPACK_ICESTORM_DIR=$(dirname $script_dir)
+EDAPACK_DIR=$(dirname $EDAPACK_ICESTORM_DIR)
+
+# Ensure Icestorm tools find their subcomponents
+#export PATH=$EDAPACK_SBY/symbiyosys/bin:$PATH
+
+# Some tools require access to Python3
+export PATH=$EDAPACK/python3/bin:$PATH
+
+export LD_LIBRARY_PATH=$EDAPACK_ICESTORM_DIR/icestorm/lib:$LD_LIBRARY_PATH
+
+exec $EDAPACK_ICESTORM_DIR/icestorm/bin/$exe ${@:1}
+

@@ -1,0 +1,59 @@
+diff -rcNB yosys-master.orig/abc/src/misc/util/abc_global.h yosys-master/abc/src/misc/util/abc_global.h
+*** yosys-master.orig/abc/src/misc/util/abc_global.h	2019-01-05 09:18:50.495669773 -0800
+--- yosys-master/abc/src/misc/util/abc_global.h	2019-01-05 09:19:43.327672042 -0800
+***************
+*** 103,141 ****
+  #include <stddef.h>
+  #include <stdint.h>
+  
+- #if UINTPTR_MAX == 0xFFFFFFFFFFFFFFFF
+  #define SIZEOF_VOID_P 8
+! #ifdef _WIN32
+! #define NT64
+! #else
+! #define LIN64
+! #endif
+! #elif UINTPTR_MAX == 0xFFFFFFFF
+! #define SIZEOF_VOID_P 4
+  #ifdef _WIN32
+  #define NT
+  #else
+  #define LIN
+  #endif
+- #else
+-    #error unsupported platform
+- #endif
+- 
+- #if ULONG_MAX == 0xFFFFFFFFFFFFFFFF
+- #define SIZEOF_LONG 8
+- #elif ULONG_MAX == 0xFFFFFFFF
+- #define SIZEOF_LONG 4
+- #else
+-    #error unsupported platform
+- #endif
+- 
+- #if UINT_MAX == 0xFFFFFFFFFFFFFFFF
+- #define SIZEOF_INT 8
+- #elif UINT_MAX == 0xFFFFFFFF
+- #define SIZEOF_INT 4
+- #else
+-    #error unsupported platform
+- #endif
+  
+  #endif
+  
+--- 103,116 ----
+  #include <stddef.h>
+  #include <stdint.h>
+  
+  #define SIZEOF_VOID_P 8
+! #define SIZEOF_LONG 8
+! #define SIZEOF_INT 4
+  #ifdef _WIN32
+  #define NT
+  #else
+  #define LIN
+  #endif
+  
+  #endif
+  
